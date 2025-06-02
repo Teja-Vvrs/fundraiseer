@@ -138,16 +138,3 @@ fundraiseer/
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Thanks to all contributors who have helped shape Fundraiseer
-- Special thanks to the open-source community for the amazing tools and libraries
-
-## Support
-
-For support, email support@fundraiseer.com or join our Slack channel. 
