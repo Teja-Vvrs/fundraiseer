@@ -110,24 +110,8 @@ export const campaignAPI = {
       });
   },
   createCampaign: (campaignData) => {
-    const formData = new FormData();
-    
-    // Add all campaign data to FormData
-    Object.keys(campaignData).forEach(key => {
-      if (key === 'mediaUrls' && Array.isArray(campaignData[key])) {
-        // Handle mediaUrls array
-        campaignData[key].forEach((url, index) => {
-          formData.append(`mediaUrls[${index}]`, url);
-        });
-      } else if (key === 'fundUtilizationPlan') {
-        // Convert object to string for FormData
-        formData.append(key, JSON.stringify(campaignData[key]));
-      } else {
-        formData.append(key, campaignData[key]);
-      }
-    });
-
-    return api.post('/campaigns/create', formData);
+    // Send JSON data directly since we no longer handle file uploads
+    return api.post('/campaigns/create', campaignData);
   },
   updateCampaign: (campaignId, campaignData) => api.put(`/campaigns/${campaignId}`, campaignData),
   deleteCampaign: (campaignId) => api.delete(`/campaigns/${campaignId}`),
