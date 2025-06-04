@@ -2,7 +2,6 @@ const Campaign = require('../models/Campaign');
 const mongoose = require('mongoose');
 const Donation = require('../models/Donation');
 const Comment = require('../models/Comment');
-const { uploadToCloudinary, uploadMultipleToCloudinary } = require('../utils/cloudinary');
 
 // Default category images from Unsplash
 const categoryImages = {
@@ -110,29 +109,14 @@ const createCampaign = async (req, res) => {
       });
     }
 
-    // Handle media uploads
-    let mediaUrls = [];
-    if (req.files && req.files.length > 0) {
-      try {
-        const uploadResults = await uploadMultipleToCloudinary(req.files, 'campaigns');
-        mediaUrls = uploadResults.map(result => result.url);
-      } catch (uploadError) {
-        console.error('Media upload error:', uploadError);
-        return res.status(400).json({
-          message: 'Media upload failed',
-          errors: [uploadError.message]
-        });
-      }
-    }
-
-    // Create campaign
+    // Create campaign with default image
     const campaign = new Campaign({
       title: title.trim(),
       description: description.trim(),
       goalAmount: parsedGoalAmount,
       deadline: deadlineDate,
       category: category.toLowerCase(),
-      mediaUrls,
+      mediaUrls: [getRandomImage(category.toLowerCase())],
       fundUtilizationPlan: fundUtilizationPlan.trim(),
       creatorId: req.user.userId,
       status: req.user.role === 'admin' ? 'approved' : 'pending',

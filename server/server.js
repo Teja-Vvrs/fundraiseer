@@ -2,9 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const path = require('path');
 const { errorHandler } = require('./middleware/error');
-const fs = require('fs').promises;
 
 // Route imports
 const adminRoutes = require('./routes/adminRoutes');
@@ -17,32 +15,9 @@ const donationRoutes = require('./routes/donationRoutes');
 
 const app = express();
 
-// Create uploads directory if it doesn't exist
-const uploadsDir = path.join(__dirname, 'uploads');
-const avatarsDir = path.join(uploadsDir, 'avatars');
-const campaignsDir = path.join(uploadsDir, 'campaigns');
-const documentsDir = path.join(uploadsDir, 'documents');
-
-(async () => {
-  try {
-    await fs.mkdir(avatarsDir, { recursive: true });
-    await fs.mkdir(campaignsDir, { recursive: true });
-    await fs.mkdir(documentsDir, { recursive: true });
-    console.log('Uploads directories created/verified:', {
-      uploadsDir,
-      avatarsDir,
-      campaignsDir,
-      documentsDir
-    });
-  } catch (error) {
-    console.error('Error creating uploads directory:', error);
-  }
-})();
-
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // Debug middleware for all requests
 app.use((req, res, next) => {
@@ -50,21 +25,6 @@ app.use((req, res, next) => {
     headers: req.headers,
     body: req.body,
     query: req.query
-  });
-  next();
-});
-
-// Serve static files from uploads directory with proper URL path
-const staticPath = path.join(__dirname, 'uploads');
-console.log('Setting up static file serving from:', staticPath);
-app.use('/api/uploads', express.static(staticPath));
-
-// Additional debug middleware for static file requests
-app.use('/api/uploads', (req, res, next) => {
-  console.log('Static file request:', {
-    originalUrl: req.originalUrl,
-    path: req.path,
-    physicalPath: path.join(staticPath, req.path)
   });
   next();
 });
@@ -80,7 +40,9 @@ app.use('/api/donations', donationRoutes);
 
 // Error handler
 app.use(errorHandler);
-
+app.get("/", (req, res) => {
+  res.send("🎉 FundRaiseer Backend is Live");
+});
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
