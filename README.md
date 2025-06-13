@@ -6,12 +6,10 @@ A full-stack fundraising platform built with React, Node.js, and MongoDB that en
 
 ### For Users
 - 🚀 Create and manage fundraising campaigns
-- 💰 Secure donation processing
+- 💰 fake donation processing for demo
 - 📊 Real-time campaign statistics and progress tracking
 - 📱 Responsive design for all devices
-- 🖼️ Multiple media upload support for campaigns
 - 💬 Campaign comments and updates
-- 📧 Email notifications for donations and campaign updates
 
 ### For Campaign Creators
 - 📈 Detailed campaign analytics dashboard
@@ -21,9 +19,8 @@ A full-stack fundraising platform built with React, Node.js, and MongoDB that en
 - 🏷️ Categorize campaigns for better visibility
 
 ### For Donors
-- 🔒 Secure payment processing
+- 🔒 Demo payment processing
 - 📱 Easy-to-use donation interface
-- 📧 Donation receipts and acknowledgments
 - 👥 Option for anonymous donations
 - 💖 Track donation history
 
@@ -42,7 +39,6 @@ A full-stack fundraising platform built with React, Node.js, and MongoDB that en
 - MongoDB with Mongoose
 - JWT for authentication
 - bcryptjs for password hashing
-- Multer for file uploads
 
 ## Getting Started
 
