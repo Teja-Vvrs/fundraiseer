@@ -23,7 +23,8 @@
     "react-toastify": "^11.0.5",
     "react-tooltip": "^5.28.1",
     "recharts": "^2.15.3",
-    "tailwindcss": "^4.1.8"
+    "tailwindcss": "^4.1.8",
+    "vercel": "^43.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
